@@ -33,6 +33,7 @@ export default class Registration extends React.Component {
             console.log(response);
             localStorage.setItem("username", response.data.response.username);
             localStorage.setItem("access_token", response.data.response.token);
+            localStorage.setItem("isAdmin", response.data.response.isAdmin);
             window.location.reload();
         });
     }

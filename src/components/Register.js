@@ -13,10 +13,10 @@ export default class Registration extends React.Component {
             email: '',
             password: '',
             fullName: '',
-            userName: ''
+            userName: '',
+            isRegistered: false
         };
     }
-
     handleFullNameChange(e) {
         this.setState({ fullName: e.target.value })
     }
@@ -43,12 +43,32 @@ export default class Registration extends React.Component {
         }
         ).then((response) => {
             console.log(response);
+            if (response.data.response) {
+                this.setState({ isRegistered: true })
+            }
+            this.render();
         });
     }
 
     render() {
         return (
             <div>
+                {this.state.isRegistered ? (
+                    <div class="mmmm" tabindex="1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <p>Registration completed successfully.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                        <div></div>
+                    )}
                 <form>
                     <div class="form-group">
                         <label for="exampleInputUsername">Username</label>
@@ -68,6 +88,9 @@ export default class Registration extends React.Component {
                         <input type="text" class="form-control" id="exampleInputName" placeholder="Full Name" onChange={this.handleFullNameChange} />
                     </div>
                     <button type="submit" class="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Launch demo modal
+                    </button>
                 </form>
             </div>
         )
