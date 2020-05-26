@@ -1,16 +1,53 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem, Button, Glyphicon } from 'react-bootstrap';
-import { BrowserRouter as Router, Switch, Route, Redirect, Link, withRouter } from 'react-router-dom';
+// import { Navbar, Nav, NavItem, Button, Glyphicon } from 'react-bootstrap';
+// import { BrowserRouter as Router, Switch, Route, Redirect, Link, withRouter } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
-import Categories from './components/Categories'
 import './App.css';
+import axios from 'axios';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: ["Lol"],
+      products: ["12"],
+    };
+    this.loadCategoriesFromServer = this.loadCategoriesFromServer.bind(this);
+    this.loadProductsFromServer = this.loadProductsFromServer.bind(this);
+  };
+
+  componentDidMount() {
+    this.loadProductsFromServer();
+    this.loadCategoriesFromServer();
+  }
+
+  loadCategoriesFromServer() {
+    axios.get('http://localhost:8000/api/categories/all')
+      .then((response) => {
+        this.setState({
+          categories: response.data.response
+        });
+        console.log(response);
+
+      })
+
+  }
+
+
+  loadProductsFromServer() {
+    axios.get('http://localhost:8000/api/products/all')
+      .then((response) => {
+        this.setState({
+          products: response.data.response
+        });
+        console.log(response);
+      })
+
+  }
+
   render() {
     isAuthenticated.authenticate();
-    console.log(isAuthenticated.isAuth);
-    console.log(localStorage.getItem("access_token"));
     return (
       <div className="container-fluid">
         <div class="row">
@@ -52,10 +89,10 @@ class App extends Component {
         </div>
         <div class="row">
           <div class="col-sm">
-              <Categories />
+            <CategoriesList categories={this.state.categories} />
           </div>
           <div class="col">
-            <h1>Products</h1>
+            <ProductsList products={this.state.products} />
           </div>
         </div>
         <div class="modal fade" id="exampleModal-r" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -112,4 +149,66 @@ const isAuthenticated = {
   }
 }
 
+class CategoriesList extends React.Component {
+  render() {
+    const categories = this.props.categories.map((category) =>
+      <Category key={category.id} category={category} />
+    );
+    return (
+      <div>
+        <ul class="nav flex-column">
+          {categories}
+        </ul>
+      </div>
+    )
+  }
+}
+
+
+class Category extends React.Component {
+  render() {
+    console.log(this.props)
+    return (
+      <li class="nav-item">
+        <a class="nav-link" href="#">{this.props.category.name}</a>
+      </li>
+    )
+  }
+
+}
+
+
+class ProductsList extends React.Component {
+  render() {
+    const products = this.props.products.map((product) =>
+      <Product key={product.id} product={product} />
+    );
+    console.log(this.props)
+    return (
+      <div>
+        <ul class="nav flex-column">
+          {products}
+        </ul>
+      </div>
+    )
+  }
+
+}
+
+class Product extends React.Component {
+  render() {
+    return (
+      <div>
+        <div class="card" style={{"width": "18rem"}}>
+          <img src="..." class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">{this.props.product.name}</h5>
+            <p class="card-text">{this.props.product.description}</p>
+            <a href="#" class="btn btn-primary">Переход куда-нибудь</a>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
 export default App;
