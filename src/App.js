@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
-// import { Navbar, Nav, NavItem, Button, Glyphicon } from 'react-bootstrap';
-// import { BrowserRouter as Router, Switch, Route, Redirect, Link, withRouter } from 'react-router-dom';
+import { Navbar, Nav, NavItem, Button, Glyphicon } from 'react-bootstrap';
+import { BrowserRouter as Router, Switch, Route, Redirect, Link, withRouter } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
 import './App.css';
 import axios from 'axios';
+import Products from './components/Products';
+import AddProduct from './components/AddProduct';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: ["Lol"],
-      products: ["12"],
+      categories: ["1"],
+      products: ["2"],
     };
     this.loadCategoriesFromServer = this.loadCategoriesFromServer.bind(this);
-    this.loadProductsFromServer = this.loadProductsFromServer.bind(this);
   };
 
   componentDidMount() {
-    this.loadProductsFromServer();
     this.loadCategoriesFromServer();
   }
 
@@ -35,17 +35,6 @@ class App extends Component {
   }
 
 
-  loadProductsFromServer() {
-    axios.get('http://localhost:8000/api/products/all')
-      .then((response) => {
-        this.setState({
-          products: response.data.response
-        });
-        console.log(response);
-      })
-
-  }
-
   render() {
     isAuthenticated.authenticate();
     return (
@@ -53,9 +42,8 @@ class App extends Component {
         <div class="row">
           <div class="col">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <a class="navbar-brand" href="#">
-                Hermes
-          </a>
+              <a class="navbar-brand" href="/">Hermes</a>
+              {localStorage.getItem("isAdmin") ? (<a class="navbar-nav" href="/addProduct">Add prod</a>) : (<div></div>)}
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -88,11 +76,16 @@ class App extends Component {
           </div>
         </div>
         <div class="row">
-          <div class="col-sm">
+          <div class="col col-lg-2">
             <CategoriesList categories={this.state.categories} />
           </div>
           <div class="col">
-            <ProductsList products={this.state.products} />
+            <Router>
+              <div>
+                <Route path="/addProduct" component={AddProduct} />
+                <Route path="/" component={Products} />
+              </div>
+            </Router>
           </div>
         </div>
         <div class="modal fade" id="exampleModal-r" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -178,37 +171,4 @@ class Category extends React.Component {
 }
 
 
-class ProductsList extends React.Component {
-  render() {
-    const products = this.props.products.map((product) =>
-      <Product key={product.id} product={product} />
-    );
-    console.log(this.props)
-    return (
-      <div>
-        <ul class="nav flex-column">
-          {products}
-        </ul>
-      </div>
-    )
-  }
-
-}
-
-class Product extends React.Component {
-  render() {
-    return (
-      <div>
-        <div class="card" style={{"width": "18rem"}}>
-          <img src="..." class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">{this.props.product.name}</h5>
-            <p class="card-text">{this.props.product.description}</p>
-            <a href="#" class="btn btn-primary">Переход куда-нибудь</a>
-          </div>
-        </div>
-      </div>
-    )
-  }
-}
 export default App;
