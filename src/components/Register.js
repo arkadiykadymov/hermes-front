@@ -88,9 +88,6 @@ export default class Registration extends React.Component {
                         <input type="text" class="form-control" id="exampleInputName" placeholder="Full Name" onChange={this.handleFullNameChange} />
                     </div>
                     <button type="submit" class="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Launch demo modal
-                    </button>
                 </form>
             </div>
         )

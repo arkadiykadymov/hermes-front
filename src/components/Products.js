@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
 
 
@@ -57,14 +57,18 @@ class ProductsList extends React.Component {
 
 class Product extends React.Component {
     render() {
+        var filepath = "file:///home/daddy/dev/pics/" + this.props.product.filename;
         return (
             <div>
                 <div class="card">
-                    <img src="https://images-na.ssl-images-amazon.com/images/I/61fkdeyq5QL._SX466_.jpg" class="card-img-top" alt="..." />
+                    <img src={filepath} class="card-img-top" />
                     <div class="card-body">
                         <h5 class="card-title">{this.props.product.name}</h5>
                         <p class="card-text">{this.props.product.description}</p>
-                        <a href="#" class="btn btn-primary">Переход куда-нибудь</a>
+                        <p class="card-text">{this.props.product.storageCount}</p>
+                        <p class="card-text">{this.props.product.price} $</p>
+
+                        <a href="#" class="btn btn-primary">Купить</a>
                     </div>
                 </div>
             </div>

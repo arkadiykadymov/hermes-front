@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem, Button, Glyphicon } from 'react-bootstrap';
-import { BrowserRouter as Router, Switch, Route, Redirect, Link, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router,  Route} from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
 import './App.css';
@@ -43,10 +42,27 @@ class App extends Component {
           <div class="col">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
               <a class="navbar-brand" href="/">Hermes</a>
-              {localStorage.getItem("isAdmin") ? (<a class="navbar-nav" href="/addProduct">Add prod</a>) : (<div></div>)}
+              {localStorage.getItem("isAdmin") ? (<button type="button" class="navbar-nav" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add product</button>) : (<div></div>)}
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
+                <span class="navbar-toggler-icon"></span></button>
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Add product</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <AddProduct />
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
@@ -81,10 +97,7 @@ class App extends Component {
           </div>
           <div class="col">
             <Router>
-              <div>
-                <Route path="/addProduct" component={AddProduct} />
-                <Route path="/" component={Products} />
-              </div>
+              <Route path="/" component={Products} />
             </Router>
           </div>
         </div>
