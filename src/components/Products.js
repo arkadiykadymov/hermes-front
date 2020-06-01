@@ -57,7 +57,7 @@ class ProductsList extends React.Component {
 
 class Product extends React.Component {
     render() {
-        var filepath = "file:///home/daddy/dev/pics/" + this.props.product.filename;
+        var filepath = "http://localhost:8000/img/" + this.props.product.filename;
         return (
             <div>
                 <div class="card">
