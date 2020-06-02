@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router,  Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
 import './App.css';
-import axios from 'axios';
 import Products from './components/Products';
 import AddProduct from './components/AddProduct';
 
@@ -11,28 +10,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: ["1"],
+      categories: ["Phones","Electronics", "Home", "PC", "clothes"],
       products: ["2"],
     };
-    this.loadCategoriesFromServer = this.loadCategoriesFromServer.bind(this);
   };
-
-  componentDidMount() {
-    this.loadCategoriesFromServer();
-  }
-
-  loadCategoriesFromServer() {
-    axios.get('http://localhost:8000/api/categories/all')
-      .then((response) => {
-        this.setState({
-          categories: response.data.response
-        });
-        console.log(response);
-
-      })
-
-  }
-
 
   render() {
     isAuthenticated.authenticate();
@@ -69,19 +50,21 @@ class App extends Component {
                 </ul>
                 {isAuthenticated.isAuth ? (
                   <div>
-                    Hello, {localStorage.getItem("username")}
-                    <button onClick={isAuthenticated.sighnout}>log out</button>
+                    Hello, {localStorage.getItem("username")}!
+                    <i class="fas fa-sign-out-alt fa-lg" style={{ 'margin-left': '20px' }} onClick={isAuthenticated.sighnout}></i>
                   </div>) :
                   (<div>
                     <div class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Account
               </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <div class="d-menu">
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style={{ 'height': '100px', 'width': '50px' }}>
+                        <div class="d-menu" style={{ 'height': '100px', 'width': '100px', 'text-align': 'center', 'vertical-align': 'middle' }}>
                           <h6>Welcome to online shop</h6>
-                          <button style={{ 'margin-left': '20px', 'margin-right': '20px' }} type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-r">Register</button>
-                          <button style={{ 'margin-left': '20px', 'margin-right': '20px' }} type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-l">Login</button>
+                          <i class="fas fa-registered fa-2x" style={{ 'margin-right': '20px' }} data-toggle="modal" data-target="#exampleModal-r"></i>
+                          <i class="fas fa-sign-in-alt fa-2x" data-toggle="modal" data-target="#exampleModal-l"></i>
+                          {/* <button style={{ 'margin-left': '20px', 'margin-right': '20px' }} type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-r">Register</button>
+                          <button style={{ 'margin-left': '20px', 'margin-right': '20px' }} type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-l">Login</button> */}
                         </div>
                       </div>
                     </div>
@@ -158,7 +141,7 @@ const isAuthenticated = {
 class CategoriesList extends React.Component {
   render() {
     const categories = this.props.categories.map((category) =>
-      <Category key={category.id} category={category} />
+      <Category category={category} />
     );
     return (
       <div>
@@ -173,10 +156,9 @@ class CategoriesList extends React.Component {
 
 class Category extends React.Component {
   render() {
-    console.log(this.props)
     return (
       <li class="nav-item">
-        <a class="nav-link" href="#">{this.props.category.name}</a>
+        <a class="nav-link" href="#">{this.props.category}</a>
       </li>
     )
   }
