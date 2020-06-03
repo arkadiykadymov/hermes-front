@@ -10,7 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: ["Phones","Electronics", "Home", "PC", "clothes"],
+      categories: ["Phones","Electronics", "Home", "PC", "Clothes"],
       products: ["2"],
     };
   };

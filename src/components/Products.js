@@ -61,11 +61,11 @@ class Product extends React.Component {
         this.deleteProduct = this.deleteProduct.bind(this);
     };
     deleteProduct() {
-        console.log(this)
-        axios.delete(api_url + '/delete/' + this.props.product.name)
-        .then((responce) => {
-            console.log(responce);
-        })
+        axios.get(api_url + '/products/delete/' + this.props.product.name)
+            .then((responce) => {
+                console.log(responce);
+                window.location.reload();
+            })
     }
     render() {
         var filepath = "http://localhost:8000/img/" + this.props.product.filename;
@@ -80,10 +80,29 @@ class Product extends React.Component {
                         <hr />
                         <p class="card-text">Price - {this.props.product.price} $</p>
                         <p class="card-text"><small class="text-muted">Storage counter - {this.props.product.storageCount}</small></p>
-                        <button class="btn btn-warning" style={{"margin-right" : "10px"}}>Add to cart</button>
+                        <button class="btn btn-warning" style={{ "margin-right": "10px" }}>Add to cart</button>
                         {localStorage.getItem("isAdmin") ? (
-                            <button class="btn btn-error" onClick={this.deleteProduct}>Delete product</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteProd">Delete product</button>
                         ) : (<div></div>)}
+                        <div class="modal fade" id="deleteProd" tabindex="-1" role="dialog" aria-labelledby="deleteProdLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteProdLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Delete product - {this.props.product.name}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" onClick={this.deleteProduct}>Yes</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
