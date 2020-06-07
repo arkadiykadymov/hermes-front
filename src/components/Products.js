@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 const api_url = 'http://localhost:8000/api';
 
+
+
 export default class Products extends React.Component {
     constructor(props) {
         super(props);
@@ -19,7 +21,6 @@ export default class Products extends React.Component {
         axios.get(api_url + '/products/all')
             .then((response) => {
                 console.log("productsResponce", response);
-
                 this.setState({
                     products: response.data.response
                 });
@@ -59,6 +60,7 @@ class Product extends React.Component {
     constructor(props) {
         super(props);
         this.deleteProduct = this.deleteProduct.bind(this);
+        this.addToCart = this.addToCart.bind(this);
     };
     deleteProduct() {
         axios.get(api_url + '/products/delete/' + this.props.product.name)
@@ -67,6 +69,23 @@ class Product extends React.Component {
                 window.location.reload();
             })
     }
+
+    addToCart() {
+        const data = new FormData();
+        data.append('peoductName', this.props.product.name);
+        axios.post('http://localhost:8000/api/shoppingcart/addProduct', { 'productName': this.props.product.name }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("access_token"),
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            }
+        }
+        ).then((response) => {
+            console.log(response);
+        })
+    }
+
     render() {
         var filepath = "http://localhost:8000/img/" + this.props.product.filename;
         return (
@@ -80,7 +99,7 @@ class Product extends React.Component {
                         <hr />
                         <p class="card-text">Price - {this.props.product.price} $</p>
                         <p class="card-text"><small class="text-muted">Storage counter - {this.props.product.storageCount}</small></p>
-                        <button class="btn btn-warning" style={{ "margin-right": "10px" }}>Add to cart</button>
+                        <button class="btn btn-warning" style={{ "margin-right": "10px" }} onClick={this.addToCart}>Add to cart</button>
                         {localStorage.getItem("isAdmin") ? (
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteProd">Delete product</button>
                         ) : (<div></div>)}

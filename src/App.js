@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Register from './components/Register';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom"; import Register from './components/Register';
 import Login from './components/Login';
 import './App.css';
 import Products from './components/Products';
 import AddProduct from './components/AddProduct';
+import ShoppingCart from './components/ShoppingCart';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: ["Phones","Electronics", "Home", "PC", "Clothes"],
+      categories: ["Phones", "Electronics", "Home", "PC", "Clothes"],
       products: ["2"],
     };
   };
@@ -50,7 +55,10 @@ class App extends Component {
                 </ul>
                 {isAuthenticated.isAuth ? (
                   <div>
+                    <div>
                     Hello, {localStorage.getItem("username")}!
+                    {localStorage.getItem("cartItems") ? (<ion-icon name="cart-outline" size="large"></ion-icon>):(<ion-icon name="cart"></ion-icon>)}
+                    </div>
                     <i class="fas fa-sign-out-alt fa-lg" style={{ 'margin-left': '20px' }} onClick={isAuthenticated.sighnout}></i>
                   </div>) :
                   (<div>
@@ -80,7 +88,17 @@ class App extends Component {
           </div>
           <div class="col">
             <Router>
-              <Route path="/" component={Products} />
+              <div>
+                <hr />
+                <Switch>
+                  <Route exact path="/">
+                    <Products />
+                  </Route>
+                  <Route path="/sc">
+                    <ShoppingCart />
+                  </Route>
+                </Switch>
+              </div>
             </Router>
           </div>
         </div>
