@@ -10,15 +10,43 @@ import './App.css';
 import Products from './components/Products';
 import AddProduct from './components/AddProduct';
 import ShoppingCart from './components/ShoppingCart';
+import axios from 'axios';
+const api_url = 'http://localhost:8000/api';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       categories: ["Phones", "Electronics", "Home", "PC", "Clothes"],
-      products: ["2"],
+      products: [""],
+      cartItems: ''
     };
+    this.hrefToSc = this.hrefToSc.bind(this);
+    this.handleCartItemsCount = this.handleCartItemsCount.bind(this);
   };
+
+  componentDidMount() {
+    this.handleCartItemsCount();
+  }
+  handleCartItemsCount() {
+    axios.get(api_url + '/shoppingcart/getCartItems', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem("access_token"),
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      }
+    }).then((Response) =>{
+      console.log(Response);
+      this.setState({
+        cartItems: Response.data.response
+      })
+    })
+  }
+
+  hrefToSc() {
+    window.location = '/sc'
+  }
 
   render() {
     isAuthenticated.authenticate();
@@ -55,10 +83,8 @@ class App extends Component {
                 </ul>
                 {isAuthenticated.isAuth ? (
                   <div>
-                    <div>
                     Hello, {localStorage.getItem("username")}!
-                    {localStorage.getItem("cartItems") ? (<ion-icon name="cart-outline" size="large"></ion-icon>):(<ion-icon name="cart"></ion-icon>)}
-                    </div>
+                    {localStorage.getItem("cartItems") > 0 ? (<div><ion-icon name="cart" size="large" onClick={this.hrefToSc}></ion-icon><label>{this.state.cartItems}</label></div>) : (<div><ion-icon name="cart-outline" size="large" onClick={this.hrefToSc}></ion-icon><label>{this.state.cartItems}</label></div>)}
                     <i class="fas fa-sign-out-alt fa-lg" style={{ 'margin-left': '20px' }} onClick={isAuthenticated.sighnout}></i>
                   </div>) :
                   (<div>

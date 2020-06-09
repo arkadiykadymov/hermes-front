@@ -59,6 +59,9 @@ class ProductsList extends React.Component {
 class Product extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isAddedAlert: false,
+        }
         this.deleteProduct = this.deleteProduct.bind(this);
         this.addToCart = this.addToCart.bind(this);
     };
@@ -72,8 +75,8 @@ class Product extends React.Component {
 
     addToCart() {
         const data = new FormData();
-        data.append('peoductName', this.props.product.name);
-        axios.post('http://localhost:8000/api/shoppingcart/addProduct', { 'productName': this.props.product.name }, {
+        data.append('productName', this.props.product.name);
+        axios.post('http://localhost:8000/api/shoppingcart/addProduct', { 'name': this.props.product.name }, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem("access_token"),
@@ -82,7 +85,12 @@ class Product extends React.Component {
             }
         }
         ).then((response) => {
-            console.log(response);
+            if (response.status == 200) {
+                this.setState({
+                    isAddedAlert: true
+                })
+            }
+
         })
     }
 
@@ -124,6 +132,12 @@ class Product extends React.Component {
                         </div>
                     </div>
                 </div>
+                {(this.state.isAddedAlert) ? (<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>) : (<div></div>)}
             </div>
         )
     }
