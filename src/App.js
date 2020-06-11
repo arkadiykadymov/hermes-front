@@ -36,7 +36,7 @@ class App extends Component {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       }
-    }).then((Response) =>{
+    }).then((Response) => {
       console.log(Response);
       this.setState({
         cartItems: Response.data.response
@@ -55,7 +55,7 @@ class App extends Component {
         <div class="row">
           <div class="col">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <a class="navbar-brand" href="/">Hermes</a>
+              <a class="navbar-brand" href="/all">Hermes</a>
               {localStorage.getItem("isAdmin") ? (<button type="button" class="navbar-nav" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add product</button>) : (<div></div>)}
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span></button>
@@ -117,8 +117,23 @@ class App extends Component {
               <div>
                 <hr />
                 <Switch>
-                  <Route exact path="/">
-                    <Products />
+                  <Route exact path="/all">
+                    <Products category={"all"}/>
+                  </Route>
+                  <Route  path="/Phones">
+                    <Products category={"Phones"}/>
+                  </Route>
+                  <Route  path="/Electronics">
+                    <Products category={"Electronics"}/>
+                  </Route>
+                  <Route  path="/Home">
+                    <Products category={"Home"}/>
+                  </Route>
+                  <Route  path="/PC">
+                    <Products category={"PC"}/>
+                  </Route>
+                  <Route  path="/Clothes">
+                    <Products category={"Clothes"}/>
                   </Route>
                   <Route path="/sc">
                     <ShoppingCart />
@@ -200,9 +215,10 @@ class CategoriesList extends React.Component {
 
 class Category extends React.Component {
   render() {
+    const cat = "/" + this.props.category;
     return (
       <li class="nav-item">
-        <a class="nav-link" href="#">{this.props.category}</a>
+        <a class="nav-link" href={cat}>{this.props.category}</a>
       </li>
     )
   }

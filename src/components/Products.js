@@ -18,7 +18,7 @@ export default class Products extends React.Component {
     }
 
     loadProductsFromServer() {
-        axios.get(api_url + '/products/all')
+        axios.get(api_url + '/products/' + this.props.category)
             .then((response) => {
                 console.log("productsResponce", response);
                 this.setState({
@@ -88,9 +88,9 @@ class Product extends React.Component {
             if (response.status == 200) {
                 this.setState({
                     isAddedAlert: true
-                })
+                });
             }
-
+            window.location.reload();
         })
     }
 
@@ -133,7 +133,7 @@ class Product extends React.Component {
                     </div>
                 </div>
                 {(this.state.isAddedAlert) ? (<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                    <strong>Holy guacamole!</strong> Product was added to cart.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

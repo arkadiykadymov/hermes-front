@@ -79,6 +79,9 @@ class ProductTable extends React.Component {
 class Product extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isDelitedAlert: false
+        }
         this.deleteProductFromShoppingCart = this.deleteProductFromShoppingCart.bind(this);
     };
 
@@ -93,6 +96,12 @@ class Product extends React.Component {
                 }
             }).then((response) => {
                 console.log(response);
+                if (response.status == 200) {
+                    this.setState({
+                        isDelitedAlert: true
+                    });
+                    window.location.reload();
+                }
             })
     }
 
@@ -108,6 +117,12 @@ class Product extends React.Component {
                 <td>{this.props.product.storageCount}</td>
                 <td>{this.props.quantity}</td>
                 <td><ion-icon name="close-outline" onClick={this.deleteProductFromShoppingCart}></ion-icon></td>
+                {(this.state.isDelitedAlert) ? (<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Holy guacamole!</strong> Product was added to cart.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>) : (<div></div>)}
             </tr>
         )
     }
