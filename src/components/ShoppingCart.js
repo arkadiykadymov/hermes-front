@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
 const api_url = 'http://localhost:8000/api';
 
@@ -96,7 +96,7 @@ class Product extends React.Component {
                 }
             }).then((response) => {
                 console.log(response);
-                if (response.status == 200) {
+                if (response.status === 200) {
                     this.setState({
                         isDelitedAlert: true
                     });

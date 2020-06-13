@@ -61,9 +61,11 @@ class Product extends React.Component {
         super(props);
         this.state = {
             isAddedAlert: false,
+            quantity: ''
         }
         this.deleteProduct = this.deleteProduct.bind(this);
         this.addToCart = this.addToCart.bind(this);
+        this.handleQuantity = this.handleQuantity.bind(this);
     };
     deleteProduct() {
         axios.get(api_url + '/products/delete/' + this.props.product.name)
@@ -73,10 +75,20 @@ class Product extends React.Component {
             })
     }
 
+    handleQuantity(e) {
+        console.log(e.target.value)
+        this.setState({ quantity: e.target.value });
+    }
+
+
+
     addToCart() {
         const data = new FormData();
         data.append('productName', this.props.product.name);
-        axios.post('http://localhost:8000/api/shoppingcart/addProduct', { 'name': this.props.product.name }, {
+        axios.post('http://localhost:8000/api/shoppingcart/addProduct', {
+            'name': this.props.product.name,
+            'quantity': this.state.quantity
+        }, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem("access_token"),
@@ -85,7 +97,7 @@ class Product extends React.Component {
             }
         }
         ).then((response) => {
-            if (response.status == 200) {
+            if (response.status === 200) {
                 this.setState({
                     isAddedAlert: true
                 });
@@ -99,7 +111,7 @@ class Product extends React.Component {
         return (
             <div>
                 <div class="card my-3" style={{ "width": "18rem" }}>
-                    <img src={filepath} class="card-img" style={{ 'max-hight': '100px', 'max-width': '100px' }} />
+                    <img src={filepath} alt="product-img"class="card-img" style={{ 'max-hight': '100px', 'max-width': '100px' }} />
                     <div class="card-body">
                         <h5 class="card-title">{this.props.product.name}</h5>
                         <hr />
@@ -107,7 +119,24 @@ class Product extends React.Component {
                         <hr />
                         <p class="card-text">Price - {this.props.product.price} $</p>
                         <p class="card-text"><small class="text-muted">Storage counter - {this.props.product.storageCount}</small></p>
-                        <button class="btn btn-warning" style={{ "margin-right": "10px" }} onClick={this.addToCart}>Add to cart</button>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addtocartModal" style={{ "margin-right": "10px" }}>Add to cart</button>
+                        <div class="modal fade" id="addtocartModal" tabindex="-1" role="dialog" aria-labelledby="addtocartModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="addtocartModalLabel">Choose count</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                        <input type="number" id="quantity" name="quantity" min="1" onChange={this.handleQuantity}/>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" onClick={this.addToCart}>Add to cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         {localStorage.getItem("isAdmin") ? (
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteProd">Delete product</button>
                         ) : (<div></div>)}
