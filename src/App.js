@@ -10,7 +10,7 @@ import Products from './components/Products';
 import AddProduct from './components/AddProduct';
 import ShoppingCart from './components/ShoppingCart';
 import axios from 'axios';
-const api_url = 'http://localhost:8000/api';
+const api_url = 'http://localhost:8000/api/v1';
 
 class App extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class App extends Component {
     this.state = {
       categories: ["Phones", "Electronics", "Home", "PC", "Clothes"],
       products: [""],
-      cartItems: ''
+      cartItems: 0
     };
     this.hrefToSc = this.hrefToSc.bind(this);
     this.handleCartItemsCount = this.handleCartItemsCount.bind(this);

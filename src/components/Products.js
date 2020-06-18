@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-const api_url = 'http://localhost:8000/api';
+const api_url = 'http://localhost:8000/api/v1';
 
 
 
@@ -61,14 +61,14 @@ class Product extends React.Component {
         super(props);
         this.state = {
             isAddedAlert: false,
-            quantity: ''
+            quantity: '',
         }
         this.deleteProduct = this.deleteProduct.bind(this);
         this.addToCart = this.addToCart.bind(this);
         this.handleQuantity = this.handleQuantity.bind(this);
     };
-    deleteProduct() {
-        axios.get(api_url + '/products/delete/' + this.props.product.name)
+    deleteProduct(name) {
+        axios.get(api_url + '/products/delete/' + name)
             .then((responce) => {
                 console.log(responce);
                 window.location.reload();
@@ -81,11 +81,20 @@ class Product extends React.Component {
     }
 
 
+    componentDidMount(){
+        this.setState({
+            name: this.props.product.name,
+            description: this.props.product.description,
+            price: this.props.product.price,
+            storageCount: this.props.product.storageCount,
+        })
+    }
+
+
 
     addToCart() {
         const data = new FormData();
-        data.append('productName', this.props.product.name);
-        axios.post('http://localhost:8000/api/shoppingcart/addProduct', {
+        axios.post('http://localhost:8000/api/v1/shoppingcart/addProduct', {
             'name': this.props.product.name,
             'quantity': this.state.quantity
         }, {
@@ -107,11 +116,11 @@ class Product extends React.Component {
     }
 
     render() {
-        var filepath = "http://localhost:8000/img/" + this.props.product.filename;
+        var filepath = "http://localhost:8000/api/v1/img/" + this.props.product.filename;
         return (
             <div>
                 <div class="card my-3" style={{ "width": "18rem" }}>
-                    <img src={filepath} alt="product-img"class="card-img" style={{ 'max-hight': '100px', 'max-width': '100px' }} />
+                    <img src={filepath} class="card-img" style={{ 'max-hight': '100px', 'max-width': '100px' }} />
                     <div class="card-body">
                         <h5 class="card-title">{this.props.product.name}</h5>
                         <hr />
@@ -150,7 +159,7 @@ class Product extends React.Component {
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        Delete product - {this.props.product.name}
+                                        Delete product - {this.state.name}
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-primary" onClick={this.deleteProduct}>Yes</button>

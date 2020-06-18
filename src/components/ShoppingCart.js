@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-const api_url = 'http://localhost:8000/api';
+const api_url = 'http://localhost:8000/api/v1';
 
 
 
@@ -9,6 +9,7 @@ export default class ShoppingCart extends React.Component {
         super(props);
         this.state = {
             products: [],
+            total:''
         };
         this.handleShoppingCart = this.handleShoppingCart.bind(this);
     };
@@ -27,8 +28,11 @@ export default class ShoppingCart extends React.Component {
                 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
             }
         }).then((response) => {
+            console.log('sc', response);
             this.setState({
-                products: response.data.response
+                products: response.data.response.cartItemDTOList,
+                total:response.data.response.totalPrice
+
             })
         })
     }
@@ -52,7 +56,7 @@ export default class ShoppingCart extends React.Component {
                     <ProductTable products={this.state.products} />
                 </table>
                 <hr />
-                <p>Total: </p>
+                <p>Total: {this.state.total}</p>
             </div>
         )
     }

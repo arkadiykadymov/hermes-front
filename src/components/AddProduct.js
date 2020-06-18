@@ -59,7 +59,7 @@ export default class AddProduct extends React.Component {
         data.append('storageCount', this.state.storageCount);
         data.append('categories', this.state.categories);
         data.append('file', this.state.selectedFile);
-        axios.post('http://127.0.0.1:8000/api/products/addProduct',
+        axios.post('http://127.0.0.1:8000/api/v1/products/addProduct',
             data, {
             'Content-Type': 'multipart/form-data',
             'Authorization': 'bearer ' + localStorage.getItem("access_token")
