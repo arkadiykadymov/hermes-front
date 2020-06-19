@@ -17,14 +17,14 @@ class App extends Component {
     super(props);
     this.state = {
       categories: ["Phones", "Electronics", "Home", "PC", "Clothes"],
-      products: [""],
+      products: [],
       cartItems: 0
     };
     this.hrefToSc = this.hrefToSc.bind(this);
     this.handleCartItemsCount = this.handleCartItemsCount.bind(this);
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this.handleCartItemsCount();
   }
   handleCartItemsCount() {
@@ -117,22 +117,22 @@ class App extends Component {
                 <hr />
                 <Switch>
                   <Route exact path="/all">
-                    <Products category={"all"}/>
+                    <Products category={"all"} />
                   </Route>
-                  <Route  path="/Phones">
-                    <Products category={"Phones"}/>
+                  <Route path="/Phones">
+                    <Products category={"Phones"} />
                   </Route>
-                  <Route  path="/Electronics">
-                    <Products category={"Electronics"}/>
+                  <Route path="/Electronics">
+                    <Products category={"Electronics"} />
                   </Route>
-                  <Route  path="/Home">
-                    <Products category={"Home"}/>
+                  <Route path="/Home">
+                    <Products category={"Home"} />
                   </Route>
-                  <Route  path="/PC">
-                    <Products category={"PC"}/>
+                  <Route path="/PC">
+                    <Products category={"PC"} />
                   </Route>
-                  <Route  path="/Clothes">
-                    <Products category={"Clothes"}/>
+                  <Route path="/Clothes">
+                    <Products category={"Clothes"} />
                   </Route>
                   <Route path="/sc">
                     <ShoppingCart />

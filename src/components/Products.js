@@ -43,7 +43,7 @@ export default class Products extends React.Component {
 class ProductsList extends React.Component {
     render() {
         const products = this.props.products.map((product) =>
-            <Product product={product} />
+            <Product key={product.id} product={product}  />
         );
         return (
             <div>
@@ -62,13 +62,14 @@ class Product extends React.Component {
         this.state = {
             isAddedAlert: false,
             quantity: '',
+            product:this.props.product
         }
         this.deleteProduct = this.deleteProduct.bind(this);
         this.addToCart = this.addToCart.bind(this);
         this.handleQuantity = this.handleQuantity.bind(this);
     };
-    deleteProduct(name) {
-        axios.get(api_url + '/products/delete/' + name)
+    deleteProduct() {
+        axios.get(api_url + '/products/delete/' + this.state.product.name)
             .then((responce) => {
                 console.log(responce);
                 window.location.reload();
@@ -81,13 +82,14 @@ class Product extends React.Component {
     }
 
 
-    componentDidMount(){
+    componentDidMount() {
         this.setState({
             name: this.props.product.name,
             description: this.props.product.description,
             price: this.props.product.price,
             storageCount: this.props.product.storageCount,
         })
+        console.log("IDDDD", this.state.product);
     }
 
 
@@ -95,7 +97,7 @@ class Product extends React.Component {
     addToCart() {
         const data = new FormData();
         axios.post('http://localhost:8000/api/v1/shoppingcart/addProduct', {
-            'name': this.props.product.name,
+            'name': this.state.product.name,
             'quantity': this.state.quantity
         }, {
             headers: {
@@ -127,47 +129,14 @@ class Product extends React.Component {
                         <p class="card-text">{this.props.product.description}</p>
                         <hr />
                         <p class="card-text">Price - {this.props.product.price} $</p>
+                        <input type="number" id="quantity" name="quantity" min="1" onChange={this.handleQuantity} />
                         <p class="card-text"><small class="text-muted">Storage counter - {this.props.product.storageCount}</small></p>
-                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addtocartModal" style={{ "margin-right": "10px" }}>Add to cart</button>
+                        <button type="button" class="btn btn-warning"style={{ "margin-right": "10px" }} onClick={this.addToCart}>Add to cart</button>
                         <div class="modal fade" id="addtocartModal" tabindex="-1" role="dialog" aria-labelledby="addtocartModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="addtocartModalLabel">Choose count</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                        <input type="number" id="quantity" name="quantity" min="1" onChange={this.handleQuantity}/>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" onClick={this.addToCart}>Add to cart</button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         {localStorage.getItem("isAdmin") ? (
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteProd">Delete product</button>
+                            <button type="button" class="btn btn-primary" onClick={this.deleteProduct}>Delete product</button>
                         ) : (<div></div>)}
-                        <div class="modal fade" id="deleteProd" tabindex="-1" role="dialog" aria-labelledby="deleteProdLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteProdLabel">Modal title</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Delete product - {this.state.name}
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" onClick={this.deleteProduct}>Yes</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 {(this.state.isAddedAlert) ? (<div class="alert alert-warning alert-dismissible fade show" role="alert">
