@@ -95,7 +95,6 @@ class Product extends React.Component {
 
 
     addToCart() {
-        const data = new FormData();
         axios.post('http://localhost:8000/api/v1/shoppingcart/addProduct', {
             'name': this.state.product.name,
             'quantity': this.state.quantity

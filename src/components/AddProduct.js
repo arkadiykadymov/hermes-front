@@ -78,7 +78,7 @@ export default class AddProduct extends React.Component {
         return (
             <div>
                 {this.state.isRegistered ? (
-                    <div class="mmmm" tabindex="1" role="dialog">
+                    <div class="mmmm" tabIndex="1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
@@ -91,7 +91,7 @@ export default class AddProduct extends React.Component {
                         </div>
                     </div>
                 ) : (
-                        <div></div>
+                        <div/>
                     )}
                 <form>
                     <div class="form-group">

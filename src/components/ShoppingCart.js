@@ -12,8 +12,8 @@ export default class ShoppingCart extends React.Component {
             total:''
         };
         this.handleShoppingCart = this.handleShoppingCart.bind(this);
+        this.hrefToOrder = this.hrefToOrder.bind(this);
     };
-
 
     componentDidMount() {
         this.handleShoppingCart();
@@ -37,6 +37,10 @@ export default class ShoppingCart extends React.Component {
         })
     }
 
+    hrefToOrder() {
+        window.location = '/order'
+      }
+
     render() {
         return (
             <div>
@@ -57,6 +61,7 @@ export default class ShoppingCart extends React.Component {
                 </table>
                 <hr />
                 <p>Total: {this.state.total}</p>
+                <button onClick={this.hrefToOrder}>Buy</button>
             </div>
         )
     }
