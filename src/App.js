@@ -9,6 +9,7 @@ import './App.css';
 import Products from './components/Products';
 import AddProduct from './components/AddProduct';
 import ShoppingCart from './components/ShoppingCart';
+import Order from './components/Order'
 import axios from 'axios';
 const api_url = 'http://localhost:8000/api/v1';
 
@@ -57,7 +58,7 @@ class App extends Component {
               <a class="navbar-brand" href="/all">Hermes</a>
               {localStorage.getItem("isAdmin") ? (<button type="button" class="navbar-nav" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add product</button>) : (<div></div>)}
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span></button>
+                <span class="navbar-toggler-icon" /></button>
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -83,8 +84,8 @@ class App extends Component {
                 {isAuthenticated.isAuth ? (
                   <div>
                     Hello, {localStorage.getItem("username")}!
-                    {localStorage.getItem("cartItems") > 0 ? (<div><ion-icon name="cart" size="large" onClick={this.hrefToSc}></ion-icon><label>{this.state.cartItems}</label></div>) : (<div><ion-icon name="cart-outline" size="large" onClick={this.hrefToSc}></ion-icon><label>{this.state.cartItems}</label></div>)}
-                    <i class="fas fa-sign-out-alt fa-lg" style={{ 'margin-left': '20px' }} onClick={isAuthenticated.sighnout}></i>
+                    {localStorage.getItem("cartItems") > 0 ? (<div><ion-icon name="cart" size="large" onClick={this.hrefToSc} /><label>{this.state.cartItems}</label></div>) : (<div><ion-icon name="cart-outline" size="large" onClick={this.hrefToSc}></ion-icon><label>{this.state.cartItems}</label></div>)}
+                    <i class="fas fa-sign-out-alt fa-lg" style={{ 'margin-left': '20px' }} onClick={isAuthenticated.sighnout} />
                   </div>) :
                   (<div>
                     <div class="nav-item dropdown">
@@ -94,8 +95,8 @@ class App extends Component {
                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style={{ 'height': '100px', 'width': '50px' }}>
                         <div class="d-menu" style={{ 'height': '100px', 'width': '100px', 'text-align': 'center', 'vertical-align': 'middle' }}>
                           <h6>Welcome to online shop</h6>
-                          <i class="fas fa-registered fa-2x" style={{ 'margin-right': '20px' }} data-toggle="modal" data-target="#exampleModal-r"></i>
-                          <i class="fas fa-sign-in-alt fa-2x" data-toggle="modal" data-target="#exampleModal-l"></i>
+                          <i class="fas fa-registered fa-2x" style={{ 'margin-right': '20px' }} data-toggle="modal" data-target="#exampleModal-r" />
+                          <i class="fas fa-sign-in-alt fa-2x" data-toggle="modal" data-target="#exampleModal-l" />
                           {/* <button style={{ 'margin-left': '20px', 'margin-right': '20px' }} type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-r">Register</button>
                           <button style={{ 'margin-left': '20px', 'margin-right': '20px' }} type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-l">Login</button> */}
                         </div>
@@ -137,12 +138,15 @@ class App extends Component {
                   <Route path="/sc">
                     <ShoppingCart />
                   </Route>
+                  <Route path="/order">
+                    <Order />
+                  </Route>
                 </Switch>
               </div>
             </Router>
           </div>
         </div>
-        <div class="modal fade" id="exampleModal-r" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal-r" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -160,7 +164,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-        <div class="modal fade" id="exampleModal-l" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal-l" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -178,6 +182,7 @@ class App extends Component {
             </div>
           </div>
         </div>
+
       </div>
     );
   }
