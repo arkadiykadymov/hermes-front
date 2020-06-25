@@ -9,29 +9,61 @@ export default class Products extends React.Component {
         super(props);
         this.state = {
             products: ["2"],
-            currPage: '',
+            size:20,
             totalPages: '',
             totalElements: ''
         };
         this.loadProductsFromServer = this.loadProductsFromServer.bind(this);
+        this.loadProductsByPage =this.loadProductsByPage.bind(this);
+        this.loadNexPage = this.loadNexPage.bind(this);
+        this.loadPreviousPage = this.loadPreviousPage.bind(this);
     };
 
     componentDidMount() {
-        this.loadProductsFromServer();
+        this.loadProductsFromServer(1);
+        let page = this.state.currPage + 1;
+        this.setState({
+            currPage: page
+        });
+        window.scrollTo(0, 0);
     }
 
-    loadProductsFromServer() {
-        axios.get(api_url + '/products/' + this.props.category)
+    loadNexPage(){
+        if(localStorage.getItem('currentPage') < this.state.totalPages) {
+            let page = parseInt(localStorage.getItem('currentPage')) + 1;
+            this.loadProductsFromServer(page)
+        }
+    }
+
+    loadPreviousPage(){
+        if(localStorage.getItem('currentPage') > 1) {
+            let page = parseInt(localStorage.getItem('currentPage')) -1;
+            this.loadProductsFromServer(page)
+        }
+    }
+
+    loadProductsFromServer(page) {
+        axios.get(api_url + '/products/' + this.props.category + '/' + page)
             .then((response) => {
                 console.log("productsResponce", response);
                 this.setState({
                     products: response.data.response.content,
-                    currPage: response.data.response.number,
                     totalPages: response.data.response.totalPages,
                     totalElements: response.data.response.totalElements,
                 });
+                localStorage.setItem('currentPage', response.data.response.pageable.pageNumber + 1);
+                console.log('state', this.state);
+                setTimeout(10);
+                window.scrollTo(0, 0);
+                this.render();
+                this.render();
             })
 
+    }
+
+
+    loadProductsByPage(){
+        console.log('Page')
     }
 
     render() {
@@ -40,7 +72,7 @@ export default class Products extends React.Component {
             numbers[i] = i+1;
         }
         const pages = numbers.map((number) =>
-            <li className="page-item"><a className="page-link" href="#">{number}</a></li>
+            <PageNumber number={number} loadProductsFromServer={this.loadProductsFromServer}/>
         );
         return (
             <div>
@@ -48,14 +80,14 @@ export default class Products extends React.Component {
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
+                            <a class="page-link" aria-label="Previous" onClick={this.loadPreviousPage}>
                                 <span aria-hidden="true">&laquo;</span>
                                 <span class="sr-only">Previous</span>
                             </a>
                         </li>
                         {pages}
                         <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
+                            <a class="page-link" aria-label="Next" onClick={this.loadNexPage}>
                                 <span aria-hidden="true">&raquo;</span>
                                 <span class="sr-only">Next</span>
                             </a>
@@ -69,6 +101,24 @@ export default class Products extends React.Component {
 }
 
 
+
+class PageNumber extends React.Component{
+    constructor(props) {
+        super(props);
+        this.loadProductsFromServer=this.loadProductsFromServer.bind(this);
+    }
+    loadProductsFromServer(){
+        this.props.loadProductsFromServer(this.props.number);
+        this.render();
+    }
+    render() {
+        return (
+            <div>
+                {this.props.number == localStorage.getItem('currentPage') ? (<li className="page-item active"><a className="page-link" onClick={this.loadProductsFromServer} >{this.props.number}</a></li>):(<li className="page-item"><a className="page-link" onClick={this.loadProductsFromServer}>{this.props.number}</a></li>)}
+            </div>
+        );
+    }
+}
 
 
 class ProductsList extends React.Component {
