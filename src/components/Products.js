@@ -78,18 +78,18 @@ export default class Products extends React.Component {
             <div>
                 <ProductsList products={this.state.products} />
                 <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" aria-label="Previous" onClick={this.loadPreviousPage}>
+                    <ul className="pagination">
+                        <li className="page-item">
+                            <a className="page-link" aria-label="Previous" onClick={this.loadPreviousPage}>
                                 <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
+                                <span className="sr-only">Previous</span>
                             </a>
                         </li>
                         {pages}
-                        <li class="page-item">
-                            <a class="page-link" aria-label="Next" onClick={this.loadNexPage}>
+                        <li className="page-item">
+                            <a className="page-link" aria-label="Next" onClick={this.loadNexPage}>
                                 <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
+                                <span className="sr-only">Next</span>
                             </a>
                         </li>
                     </ul>
@@ -128,7 +128,7 @@ class ProductsList extends React.Component {
         );
         return (
             <div>
-                <ul class="card-columns">
+                <ul className="card-columns">
                     {products}
                 </ul>
             </div>
@@ -198,27 +198,27 @@ class Product extends React.Component {
         var filepath = "http://localhost:8000/api/v1/img/" + this.props.product.filename;
         return (
             <div>
-                <div class="card my-3" style={{ "width": "18rem" }}>
-                    <img src={filepath} class="card-img" style={{ 'max-hight': '100px', 'max-width': '100px' }} />
-                    <div class="card-body">
-                        <h5 class="card-title">{this.props.product.name}</h5>
+                <div className="card my-3" style={{ "width": "18rem" }}>
+                    <img src={filepath} className="card-img" style={{ 'max-hight': '100px', 'max-width': '100px' }} />
+                    <div className="card-body">
+                        <h5 className="card-title">{this.props.product.name}</h5>
                         <hr />
-                        <p class="card-text">{this.props.product.description}</p>
+                        <p className="card-text">{this.props.product.description}</p>
                         <hr />
-                        <p class="card-text">Price - {this.props.product.price} $</p>
+                        <p className="card-text">Price - {this.props.product.price} $</p>
                         <input type="number" id="quantity" name="quantity" min="1" onChange={this.handleQuantity} />
-                        <p class="card-text"><small class="text-muted">Storage counter - {this.props.product.storageCount}</small></p>
-                        <button type="button" class="btn btn-warning" style={{ "margin-right": "10px" }} onClick={this.addToCart}>Add to cart</button>
-                        <div class="modal fade" id="addtocartModal" tabindex="-1" role="dialog" aria-labelledby="addtocartModalLabel" aria-hidden="true">
+                        <p className="card-text"><small className="text-muted">Storage counter - {this.props.product.storageCount}</small></p>
+                        <button type="button" className="btn btn-warning" style={{ "margin-right": "10px" }} onClick={this.addToCart}>Add to cart</button>
+                        <div className="modal fade" id="addtocartModal" tabindex="-1" role="dialog" aria-labelledby="addtocartModalLabel" aria-hidden="true">
                         </div>
                         {localStorage.getItem("isAdmin") ? (
-                            <button type="button" class="btn btn-primary" onClick={this.deleteProduct}>Delete product</button>
+                            <button type="button" className="btn btn-primary" onClick={this.deleteProduct}>Delete product</button>
                         ) : (<div></div>)}
                     </div>
                 </div>
-                {(this.state.isAddedAlert) ? (<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {(this.state.isAddedAlert) ? (<div className="alert alert-warning alert-dismissible fade show" role="alert">
                     <strong>Holy guacamole!</strong> Product was added to cart.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>) : (<div></div>)}

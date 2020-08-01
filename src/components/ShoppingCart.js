@@ -45,7 +45,7 @@ export default class ShoppingCart extends React.Component {
         return (
             <div>
                 <p>Your shopping cart</p>
-                <table class="table">
+                <table className="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>

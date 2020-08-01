@@ -52,53 +52,53 @@ class App extends Component {
     isAuthenticated.authenticate();
     return (
       <div className="container-fluid">
-        <div class="row">
-          <div class="col">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <a class="navbar-brand" href="/all">Hermes</a>
-              {localStorage.getItem("isAdmin") ? (<button type="button" class="navbar-nav" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add product</button>) : (<div></div>)}
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" /></button>
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Add product</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div className="row">
+          <div className="col">
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+              <a className="navbar-brand" href="/all">Hermes</a>
+              {localStorage.getItem("isAdmin") ? (<button type="button" className="navbar-nav" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add product</button>) : (<div></div>)}
+              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon" /></button>
+              <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalLabel">Add product</h5>
+                      <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <div class="modal-body">
+                    <div className="modal-body">
                       <AddProduct />
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <div className="modal-footer">
+                      <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+              <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul className="navbar-nav mr-auto">
                 </ul>
                 {isAuthenticated.isAuth ? (
                   <div>
                     Hello, {localStorage.getItem("username")}!
                     {localStorage.getItem("cartItems") > 0 ? (<div><ion-icon name="cart" size="large" onClick={this.hrefToSc} /><label>{this.state.cartItems}</label></div>) : (<div><ion-icon name="cart-outline" size="large" onClick={this.hrefToSc}></ion-icon><label>{this.state.cartItems}</label></div>)}
-                    <i class="fas fa-sign-out-alt fa-lg" style={{ 'margin-left': '20px' }} onClick={isAuthenticated.sighnout} />
+                    <i className="fas fa-sign-out-alt fa-lg" style={{ 'marginLeft': '20px' }} onClick={isAuthenticated.sighnout} />
                   </div>) :
                   (<div>
-                    <div class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div className="nav-item dropdown">
+                      <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Account
               </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style={{ 'height': '100px', 'width': '50px' }}>
-                        <div class="d-menu" style={{ 'height': '100px', 'width': '100px', 'text-align': 'center', 'vertical-align': 'middle' }}>
+                      <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style={{ 'height': '100px', 'width': '50px' }}>
+                        <div className="d-menu" style={{ 'height': '100px', 'width': '100px', 'textAlign': 'center', 'verticalAlign': 'middle' }}>
                           <h6>Welcome to online shop</h6>
-                          <i class="fas fa-registered fa-2x" style={{ 'margin-right': '20px' }} data-toggle="modal" data-target="#exampleModal-r" />
-                          <i class="fas fa-sign-in-alt fa-2x" data-toggle="modal" data-target="#exampleModal-l" />
-                          {/* <button style={{ 'margin-left': '20px', 'margin-right': '20px' }} type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-r">Register</button>
-                          <button style={{ 'margin-left': '20px', 'margin-right': '20px' }} type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-l">Login</button> */}
+                          <i className="fas fa-registered fa-2x" style={{ 'marginRight': '20px' }} data-toggle="modal" data-target="#exampleModal-r" />
+                          <i className="fas fa-sign-in-alt fa-2x" data-toggle="modal" data-target="#exampleModal-l" />
+                          {/* <button style={{ 'margin-left': '20px', 'margin-right': '20px' }} type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal-r">Register</button>
+                          <button style={{ 'margin-left': '20px', 'margin-right': '20px' }} type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal-l">Login</button> */}
                         </div>
                       </div>
                     </div>
@@ -108,11 +108,11 @@ class App extends Component {
             </nav>
           </div>
         </div>
-        <div class="row">
-          <div class="col col-lg-2">
+        <div className="row">
+          <div className="col col-lg-2">
             <CategoriesList categories={this.state.categories} />
           </div>
-          <div class="col">
+          <div className="col">
             <Router>
               <div>
                 <hr />
@@ -146,38 +146,38 @@ class App extends Component {
             </Router>
           </div>
         </div>
-        <div class="modal fade" id="exampleModal-r" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Register form</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div className="modal fade" id="exampleModal-r" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Register form</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <Register />
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="modal fade" id="exampleModal-l" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Register form</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div className="modal fade" id="exampleModal-l" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Register form</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <Login />
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
@@ -208,7 +208,7 @@ class CategoriesList extends React.Component {
     );
     return (
       <div>
-        <ul class="nav flex-column">
+        <ul className="nav flex-column">
           {categories}
         </ul>
       </div>
@@ -221,8 +221,8 @@ class Category extends React.Component {
   render() {
     const cat = "/" + this.props.category;
     return (
-      <li class="nav-item">
-        <a class="nav-link" href={cat}>{this.props.category}</a>
+      <li className="nav-item">
+        <a className="nav-link" href={cat}>{this.props.category}</a>
       </li>
     )
   }

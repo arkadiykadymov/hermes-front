@@ -54,14 +54,14 @@ export default class Registration extends React.Component {
         return (
             <div>
                 {this.state.isRegistered ? (
-                    <div class="mmmm" tabindex="1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body">
+                    <div className="mmmm" tabindex="1" role="dialog">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-body">
                                     <p>Registration completed successfully.</p>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -70,24 +70,24 @@ export default class Registration extends React.Component {
                         <div></div>
                     )}
                 <form>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="exampleInputUsername">Username</label>
-                        <input type="text" class="form-control" id="exampleInputUsername" placeholder="Username" onChange={this.handleUserNameChange} />
+                        <input type="text" className="form-control" id="exampleInputUsername" placeholder="Username" onChange={this.handleUserNameChange} />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" onChange={this.handleEmailChange} />
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" onChange={this.handleEmailChange} />
+                        <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" onChange={this.handlePasswordChange} />
+                        <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" onChange={this.handlePasswordChange} />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="exampleInputName">Full Name</label>
-                        <input type="text" class="form-control" id="exampleInputName" placeholder="Full Name" onChange={this.handleFullNameChange} />
+                        <input type="text" className="form-control" id="exampleInputName" placeholder="Full Name" onChange={this.handleFullNameChange} />
                     </div>
-                    <button type="submit" class="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
+                    <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
                 </form>
             </div>
         )

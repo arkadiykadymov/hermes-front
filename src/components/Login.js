@@ -43,15 +43,15 @@ export default class Registration extends React.Component {
         return (
             <div>
                 <form>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="exampleInputUsername">Username</label>
-                        <input type="text" class="form-control" id="exampleInputUsername" placeholder="Username" onChange={this.handleUserNameChange} />
+                        <input type="text" className="form-control" id="exampleInputUsername" placeholder="Username" onChange={this.handleUserNameChange} />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" onChange={this.handlePasswordChange} />
+                        <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" onChange={this.handlePasswordChange} />
                     </div>
-                    <button type="submit" class="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
+                    <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
                 </form>
             </div>
         )
