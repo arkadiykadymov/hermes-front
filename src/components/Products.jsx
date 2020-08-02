@@ -114,7 +114,7 @@ class PageNumber extends React.Component{
     render() {
         return (
             <div>
-                {this.props.number == localStorage.getItem('currentPage') ? (<li className="page-item active"><a className="page-link" onClick={this.loadProductsFromServer} >{this.props.number}</a></li>):(<li className="page-item"><a className="page-link" onClick={this.loadProductsFromServer}>{this.props.number}</a></li>)}
+                {this.props.number === localStorage.getItem('currentPage') ? (<li className="page-item active"><a className="page-link" onClick={this.loadProductsFromServer} >{this.props.number}</a></li>):(<li className="page-item"><a className="page-link" onClick={this.loadProductsFromServer}>{this.props.number}</a></li>)}
             </div>
         );
     }
@@ -199,7 +199,7 @@ class Product extends React.Component {
         return (
             <div>
                 <div className="card my-3" style={{ "width": "18rem" }}>
-                    <img src={filepath} className="card-img" style={{ 'max-hight': '100px', 'max-width': '100px' }} />
+                    <img src={filepath} className="card-img" style={{ 'maxHigh': '100px', 'maxWidth': '100px' }} />
                     <div className="card-body">
                         <h5 className="card-title">{this.props.product.name}</h5>
                         <hr />
@@ -208,8 +208,8 @@ class Product extends React.Component {
                         <p className="card-text">Price - {this.props.product.price} $</p>
                         <input type="number" id="quantity" name="quantity" min="1" onChange={this.handleQuantity} />
                         <p className="card-text"><small className="text-muted">Storage counter - {this.props.product.storageCount}</small></p>
-                        <button type="button" className="btn btn-warning" style={{ "margin-right": "10px" }} onClick={this.addToCart}>Add to cart</button>
-                        <div className="modal fade" id="addtocartModal" tabindex="-1" role="dialog" aria-labelledby="addtocartModalLabel" aria-hidden="true">
+                        <button type="button" className="btn btn-warning" style={{ "marginRight": "10px" }} onClick={this.addToCart}>Add to cart</button>
+                        <div className="modal fade" id="addtocartModal" tabIndex="-1" role="dialog" aria-labelledby="addtocartModalLabel" aria-hidden="true">
                         </div>
                         {localStorage.getItem("isAdmin") ? (
                             <button type="button" className="btn btn-primary" onClick={this.deleteProduct}>Delete product</button>

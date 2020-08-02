@@ -71,20 +71,20 @@ export default class Registration extends React.Component {
                     )}
                 <form>
                     <div className="form-group">
-                        <label for="exampleInputUsername">Username</label>
+                        <label htmlFor="exampleInputUsername">Username</label>
                         <input type="text" className="form-control" id="exampleInputUsername" placeholder="Username" onChange={this.handleUserNameChange} />
                     </div>
                     <div className="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
+                        <label htmlFor="exampleInputEmail1">Email address</label>
                         <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" onChange={this.handleEmailChange} />
                         <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div className="form-group">
-                        <label for="exampleInputPassword1">Password</label>
+                        <label htmlFor="exampleInputPassword1">Password</label>
                         <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" onChange={this.handlePasswordChange} />
                     </div>
                     <div className="form-group">
-                        <label for="exampleInputName">Full Name</label>
+                        <label htmlFor="exampleInputName">Full Name</label>
                         <input type="text" className="form-control" id="exampleInputName" placeholder="Full Name" onChange={this.handleFullNameChange} />
                     </div>
                     <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>

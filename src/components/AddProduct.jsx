@@ -95,23 +95,23 @@ export default class AddProduct extends React.Component {
                     )}
                 <form>
                     <div className="form-group">
-                        <label for="exampleInputUsername">Product name</label>
+                        <label htmlFor="exampleInputUsername">Product name</label>
                         <input type="text" className="form-control" id="exInName" placeholder="Product name" onChange={this.handleNameChange} />
                     </div>
                     <div className="form-group">
-                        <label for="exampleInputEmail1">Product description</label>
+                        <label htmlFor="exampleInputEmail1">Product description</label>
                         <textarea cols="40" rows="5" className="form-control" id="exInDescription" aria-describedby="Desc" placeholder="Enter description" onChange={this.handleDescriptionChange} />
                     </div>
                     <div className="form-group">
-                        <label for="exampleInputPassword1">Product price</label>
+                        <label htmlFor="exampleInputPassword1">Product price</label>
                         <input type="number" step="0.01" className="form-control" id="exInPrice" placeholder="Enter price" onChange={this.handlePriceChange} />
                     </div>
                     <div className="form-group">
-                        <label for="exampleInputName">Product Storage Count</label>
+                        <label htmlFor="exampleInputName">Product Storage Count</label>
                         <input type="number" className="form-control" id="exInSc" placeholder="Enter Storage Count" onChange={this.handleStorageCountChange} />
                     </div>
                     <div>
-                        <label for="exampleInputName">Select categories</label>
+                        <label htmlFor="exampleInputName">Select categories</label>
                         <select className="custom-select" multiple value={this.state.categories} onChange={this.handleCatsChange}>
                             <option value="Phones">Phones</option>
                             <option value="Electronics">Electronics</option>
@@ -121,10 +121,10 @@ export default class AddProduct extends React.Component {
                         </select>
                     </div>
                     <div>
-                        <label for="exampleScFile">Select file</label>
+                        <label htmlFor="exampleScFile">Select file</label>
                         <div className="custom-file">
                             <input type="file" className="custom-file-input" id="customFile" onChange={this.handleFileChange}/>
-                            <label className="custom-file-label" for="customFile">Choose file</label>
+                            <label className="custom-file-label" htmlFor="customFile">Choose file</label>
                         </div>
                     </div>
                     <div>

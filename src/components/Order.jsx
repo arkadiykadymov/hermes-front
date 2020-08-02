@@ -1,7 +1,4 @@
 import React from 'react';
-import axios from 'axios';
-const api_url = 'http://localhost:8000/api/v1';
-
 
 export default class Order extends React.Component {
     constructor(props) {

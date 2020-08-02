@@ -116,7 +116,7 @@ class Product extends React.Component {
 
     render() {
 
-        var filepath = "http://localhost:8000/img/" + this.props.product.filename;
+        // var filepath = "http://localhost:8000/img/" + this.props.product.filename;
         return (
             <tr>
                 <td></td>

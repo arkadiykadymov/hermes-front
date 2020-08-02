@@ -44,11 +44,11 @@ export default class Registration extends React.Component {
             <div>
                 <form>
                     <div className="form-group">
-                        <label for="exampleInputUsername">Username</label>
+                        <label htmlFor="exampleInputUsername">Username</label>
                         <input type="text" className="form-control" id="exampleInputUsername" placeholder="Username" onChange={this.handleUserNameChange} />
                     </div>
                     <div className="form-group">
-                        <label for="exampleInputPassword1">Password</label>
+                        <label htmlFor="exampleInputPassword1">Password</label>
                         <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" onChange={this.handlePasswordChange} />
                     </div>
                     <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
