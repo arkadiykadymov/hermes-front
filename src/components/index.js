@@ -1,0 +1,10 @@
+export { default as AddProduct } from './AddProduct';
+export { default as Header } from './Header';
+export { default as Login } from './Login';
+export { default as Order } from './Order';
+export { default as Products } from './Products';
+export { default as Register } from './Register';
+export { default as ShoppingCart } from './ShoppingCart';
+export { default as ProductBlock } from './ProductBlock';
+export { default as Home } from './Home';
+export { default as SortPopup } from './SortPopup';
